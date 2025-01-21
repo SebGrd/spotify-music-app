@@ -3,7 +3,6 @@ import "./globals.css";
 import FloatingTools from "../components/tools/FloatingTools";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import Script from "next/script";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const metadata: Metadata = {
   title: "Music app",

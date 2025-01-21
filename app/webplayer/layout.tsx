@@ -21,7 +21,7 @@ export default function WebPlayerLayout({ children }: { children: React.ReactNod
             return router.push('/');
         }
         setToken(token);
-    }, [])
+    }, [router]);
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-right" />

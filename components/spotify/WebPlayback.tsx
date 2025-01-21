@@ -1,16 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { SpotifySDK } from '@/types/spotifySDK';
-import { Progress } from '../ui/progress';
 import { Button } from '../ui/button';
 import { AudioLines, Bolt, Pause, Play, Repeat, Shuffle, SkipBackIcon, SkipForwardIcon } from 'lucide-react';
 import PlayerProgressBar from './PlayerProgessBar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import VolumeSlider from './VolumeSlider';
 import { useActions } from '@/actions';
+import Image from 'next/image';
 
 
-function WebPlayback({ token }) {
+function WebPlayback({ token }: { token: string }) {
     const { transferPlayback } = useActions();
 
     const [is_paused, setPaused] = useState(false);
@@ -22,10 +22,12 @@ function WebPlayback({ token }) {
 
     useEffect(() => {
 
-        // const script = document.createElement("script");
-        // script.src = "https://sdk.scdn.co/spotify-player.js";
-        // script.async = true;
-        // document.body.appendChild(script);
+        // if (!window.onSpotifyWebPlaybackSDKReady) {
+        //     const script = document.createElement("script");
+        //     script.src = "https://sdk.scdn.co/spotify-player.js";
+        //     script.async = true;
+        //     document.body.appendChild(script);
+        // }
 
         window.onSpotifyWebPlaybackSDKReady = () => {
 
@@ -42,7 +44,7 @@ function WebPlayback({ token }) {
                 setDeviceId(device_id);
                 player.getCurrentState().then(state => {
                     console.log('Current state', state);
-                    state ? setActive(true) : setActive(false);
+                    setActive(state ? true : false);
                 });
             });
 
@@ -74,7 +76,7 @@ function WebPlayback({ token }) {
             player.connect()
 
         };
-    }, []);
+    }, [token]);
 
     if (!isActive || !player) {
         return (
@@ -93,7 +95,7 @@ function WebPlayback({ token }) {
             {/* Thumbnail / Title */}
             <div className='row-span-1 col-span-2 lg:row-span-2 lg:col-span-1 flex items-center gap-4'>
                 {current_track ?
-                    <img src={current_track.album.images[0].url} className="size-16" alt="" />
+                    <Image src={current_track.album.images[0].url} className="size-16" alt="" />
                     :
                     <div className='size-16 bg-secondary'></div>
                 }

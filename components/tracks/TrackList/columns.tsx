@@ -8,7 +8,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -66,7 +65,7 @@ export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: () => {
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

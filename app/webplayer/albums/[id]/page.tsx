@@ -3,7 +3,6 @@
 import Cover from "@/components/spotify/Cover";
 import PlayButton from "@/components/spotify/PlayButton";
 import AlbumTable from "@/components/tracks/AlbumTable";
-import TrackTable from "@/components/tracks/TrackList";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStore } from "@/store/store-hook";

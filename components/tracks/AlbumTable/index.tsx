@@ -11,7 +11,7 @@ export default function AlbumTable({ tracks, isLoading }: { tracks: SpotifyApi.T
             cell: () => <Skeleton className="w-full h-10" />,
         }))
         : columns),
-        [columns, isLoading]);
+        [isLoading]);
     return (
         <DataTable columns={tableColumns} data={tableData} />
     )

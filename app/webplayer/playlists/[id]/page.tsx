@@ -3,7 +3,6 @@
 import Cover from "@/components/spotify/Cover";
 import PlayButton from "@/components/spotify/PlayButton";
 import TrackTable from "@/components/tracks/TrackList";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStore } from "@/store/store-hook";
@@ -56,7 +55,7 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
                 <>
                     <section className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 px-4 py-12">
                         <div className="w-48 justify-self-center">
-                            <Cover type="skeleton" />
+                            <Cover type="playlist" isLoading />
                         </div>
                         <div className="flex flex-col gap-4">
                             <Skeleton className="w-1/3 h-9" />

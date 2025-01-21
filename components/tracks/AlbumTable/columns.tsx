@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Disc3, Heart, ListPlus, MicVocal, MoreHorizontal, PlusSquare, Share, Trash } from "lucide-react"
+import { Heart, ListPlus, MicVocal, MoreHorizontal, PlusSquare, Share } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -57,7 +57,7 @@ export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
+        cell: () => {
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

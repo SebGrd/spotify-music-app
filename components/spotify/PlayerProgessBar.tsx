@@ -32,11 +32,11 @@ export default function PlayerProgressBar({ duration, position, stopped, onSeek 
         if (!isSliding) {
             setSliderValue([progress]);
         }
-    }, [runningPosition]);
+    }, [runningPosition, duration, isSliding, progress]);
 
     useEffect(() => {
         setSliderValue([progress]);
-    }, [])
+    }, [progress]);
 
 
 

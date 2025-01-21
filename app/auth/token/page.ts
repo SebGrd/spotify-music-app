@@ -11,6 +11,6 @@ export default function TokenPage() {
             localStorage.setItem('token', token);
             router.push('/webplayer');
         }
-    }, [])
+    }, [router]);
     return null;
 }

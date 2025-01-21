@@ -9,10 +9,9 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarSeparator,
 } from "@/components/ui/sidebar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Album, Calendar, ChevronDown, ChevronUp, Disc3, Heart, Home, House, Inbox, Library, ListMusic, MicVocal, Search, Settings, User } from "lucide-react"
+import { ChevronDown, ChevronUp, Disc3, Heart, House, ListMusic, MicVocal } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import Link from "next/link";
 import { useStore } from "@/store/store-hook";
@@ -118,10 +117,10 @@ export function AppSidebar() {
                                         </>
                                         :
                                         <>
-                                             <Skeleton className="h-8 w-8 rounded-full" />
-                                             <Skeleton className="h-4 w-[100px]" />
+                                            <Skeleton className="h-8 w-8 rounded-full" />
+                                            <Skeleton className="h-4 w-[100px]" />
                                         </>
-                                }
+                                    }
 
                                     <ChevronUp className="ml-auto" />
                                 </SidebarMenuButton>
