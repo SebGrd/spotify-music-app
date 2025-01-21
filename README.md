@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![image](https://github.com/user-attachments/assets/96595e8e-2f07-43c6-983b-fd86bcac64c7)
+
+# Music app - A Spotify web player
+***App and Repo are free to use. Consider Spotify terms before using any of the content provided here https://developer.spotify.com/terms***  
+   
+*This is a side project of mine, don't expect long term support. All though i look every issues posted for improvment or bug fixing so feel free to do so.*   
+
+***⚠️ This app is still still in development, some core features are missing***
+
+## Description
+Music app is yet another Spotify clone. As the time goes, i felt that Spotify was getting bloated with some non-music related content (Podcasts, Audio-books, etc.) and unrelevant Playlist/Albums ads that are quite intrusive.  
+This app is putting the music back in the center of attention with UX/UI considerations so playing music and browsing through playlists, albums and tracks feels nice again!
+
+
+## Core feature missing for 100% usability
+- [ ] Infinite scroll to load more than what Spotify API is limiting
+- [ ] Volume slider
+- [ ] Queue system (see queue, add to queue, reorder queue)
+- [ ] Creating playlists
+- [ ] A home page
+- [ ] Account details & Refresh token
+- [ ] Mobile features that can't be fixed with responsive (eg: big player)
+
 
 ## Getting Started
 
-First, run the development server:
+Create an app on https://developer.spotify.com/dashboard and get you client_id and secret.  
+
+Rename `.env.exemple` to `.env` and fill your Spotify client_id and secret.  
 
 ```bash
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
