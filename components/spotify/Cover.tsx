@@ -3,7 +3,7 @@ import { AspectRatio } from "../ui/aspect-ratio";
 import { Skeleton } from "../ui/skeleton";
 
 type CoverProps = {
-    type: "playlist" | "album";
+    type: "playlist" | "album" | "artist";
     imgUrl?: string;
     isLoading?: boolean;
 }
@@ -43,6 +43,20 @@ export default function Cover({ type, imgUrl, isLoading }: CoverProps) {
                     {imgUrl && <Image src={imgUrl} alt="" className="object-cover w-full" width={300} height={300} />}
                 </AspectRatio>
             </div>
+        )
+    }
+    if (type === "artist") {
+        if (isLoading) {
+            return (
+                <AspectRatio ratio={1} className="overflow-hidden rounded-xl border">
+                    <Skeleton className="w-full h-full" />
+                </AspectRatio>
+            )
+        }
+        return (
+            <AspectRatio ratio={1} className="overflow-hidden rounded-xl border">
+                {imgUrl && <Image src={imgUrl} alt="" className="object-cover w-full h-full" loading="lazy" width={300} height={300} />}
+            </AspectRatio>
         )
     }
 }

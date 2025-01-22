@@ -1,11 +1,28 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { SpotifySDK } from "@/types/spotifySDK";
+import { SpotifyApi } from "@/types/spotifyApi";
 
 type SpotifyPlayerContextType = {
     player: SpotifySDK.Player | null;
     deviceId: string | null;
     state: Spotify.PlaybackState | null;
     currentTrack: Spotify.PlaybackState['track_window']['current_track'] | null;
+    play (data: Omit<SpotifyApi.PlayParameterObject, 'device_id'>): void;
+};
+
+async function PlayerPlay(data: SpotifyApi.PlayParameterObject) {
+    try {
+        const res = await fetch("https://api.spotify.com/v1/me/player/play", {
+            method: "PUT",
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            body: JSON.stringify(data),
+        });
+        if (!res.ok) {
+            throw new Error("Error trying to play this context");
+        }
+    } catch {
+        throw new Error("Error trying to play this context");
+    }
 };
 
 const SpotifyPlayerContext = createContext<SpotifyPlayerContextType | null>(null);
@@ -29,6 +46,13 @@ export function SpotifyPlayerProvider({ children }: { children: React.ReactNode 
         }
         return state.track_window.current_track;
     }, [state]);
+
+    const play = (data: Omit<SpotifyApi.PlayParameterObject, 'device_id'>) => {
+        if (!deviceId) {
+            return;
+        }
+        PlayerPlay({ ...data, device_id: deviceId });
+    }
 
     const init = () => {
         const token = localStorage.getItem('token');
@@ -83,6 +107,7 @@ export function SpotifyPlayerProvider({ children }: { children: React.ReactNode 
             deviceId,
             state,
             currentTrack,
+            play,
         }}>
             {children}
         </SpotifyPlayerContext.Provider>

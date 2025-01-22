@@ -1,4 +1,4 @@
-import { Pagination } from "@/types/global";
+import { ArtistsPagination, Pagination } from "@/types/global";
 import { SpotifyApi } from "@/types/spotifyApi";
 import { UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import { createContext } from "react";
@@ -11,6 +11,7 @@ type StoreContextType = {
     playlist: (id: string) => UseQueryResult<SpotifyApi.PlaylistObjectFull>;
     myAlbums: (pagination: Pagination) => UseQueryResult<SpotifyApi.UsersSavedAlbumsResponse>;
     album: (id: string) => UseQueryResult<SpotifyApi.AlbumObjectFull>;
+    myArtists: (pagination: ArtistsPagination) => UseQueryResult<SpotifyApi.UsersFollowedArtistsResponse>;
     playerMutation: UseMutationResult<any, unknown, MutationData<PlayerMutationAction>, unknown>;
 };
 
