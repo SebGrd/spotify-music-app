@@ -1,11 +1,15 @@
 ![image](https://github.com/user-attachments/assets/96595e8e-2f07-43c6-983b-fd86bcac64c7)
 
 # Music app - A Spotify web player
-***App and Repo are free to use. Consider Spotify terms before using any of the content provided here https://developer.spotify.com/terms***  
-   
-*This is a side project of mine, don't expect long term support. All though i look every issues posted for improvment or bug fixing so feel free to do so.*   
 
-***⚠️ This app is still still in development, some core features are missing***
+> [!WARNING]
+> ***⚠️ This app is still still in development, some core features are missing***
+ 
+> [!NOTE]
+> App and Repo are free to use. Consider Spotify terms before using any of the content provided here https://developer.spotify.com/terms.
+
+> [!NOTE]
+> *This is a side project of mine, don't expect long term support. All though i look every issues posted for improvment or bug fixing so feel free to do so.*   
 
 ## Description
 Music app is yet another Spotify clone. As the time goes, i felt that Spotify was getting bloated with some non-music related content (Podcasts, Audio-books, etc.) and unrelevant Playlist/Albums ads that are quite intrusive.  
