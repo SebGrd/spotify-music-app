@@ -8,6 +8,8 @@ import VolumeSlider from './VolumeSlider';
 import { useActions } from '@/actions';
 import Image from 'next/image';
 import { usePlayer } from '@/app/contexts/SpotifyPlayer';
+import PageLink from '../navigation/PageLink';
+import TrackArtists from '../tracks/TrackArtists';
 
 
 function WebPlayback() {
@@ -17,7 +19,6 @@ function WebPlayback() {
     if (!state || !player) {
         return (
             <div className='flex items-center justify-center h-full'>
-
                 <Button onClick={() => deviceId && transferPlayback(deviceId, true)}>
                     <AudioLines />Transfer playback
                 </Button>
@@ -36,8 +37,26 @@ function WebPlayback() {
                     <div className='size-16 bg-secondary'></div>
                 }
                 <div className='w-[200px] lg:w-[180px] xl:w-[230px]'>
-                    <a className="block text-sm font-semibold truncate">{currentTrack?.name ?? '-'}</a>
-                    <a className="block text-sm text-muted-foreground">{currentTrack?.artists[0].name ?? '-'}</a>
+                    {currentTrack ?
+                        <>
+                            <PageLink type="album" id={currentTrack?.album.uri.substring(14)} className="block text-sm font-semibold truncate hover:underline">
+                                {currentTrack.name}
+                            </PageLink>
+                            <TrackArtists artists={currentTrack?.artists.map((artist) => ({
+                                external_urls: { spotify: artist.url },
+                                href: artist.url,
+                                id: artist.uri.substring(15),
+                                name: artist.name,
+                                type: 'artist',
+                                uri: artist.uri
+                            }))} className="block text-sm text-muted-foreground truncate" />
+                        </>
+                        :
+                        <>
+                            <p className="block text-sm font-semibold truncate">. . .</p>
+                            <p className="block text-sm text-muted-foreground">. . .</p>
+                        </>
+                    }
                 </div>
             </div>
 
@@ -85,7 +104,7 @@ function WebPlayback() {
                     <TooltipProvider>
                         <Tooltip delayDuration={0}>
                             <TooltipTrigger>
-                                <Signal className='text-muted-foreground' size={20}/>
+                                <Signal className='text-muted-foreground' size={20} />
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Playback quality</p>

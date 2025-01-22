@@ -10,6 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import TrackArtists from "../TrackArtists"
 
 
 export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
@@ -28,14 +29,13 @@ export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
         header: "Title",
         cell: ({ row }) => {
             const track = row.original;
+            if (!track) return null;
             return (
                 <div>
-                    <p className="truncate">
-                        {track?.name}
+                    <p className="truncate font-medium">
+                        {track.name}
                     </p>
-                    <p className="text-muted-foreground text-sm">
-                        {track?.artists.map((artist) => artist.name).join(", ")}
-                    </p>
+                    <TrackArtists artists={track.artists} className="text-muted-foreground text-sm" />
                 </div>
             )
         }

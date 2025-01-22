@@ -11,6 +11,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import PageLink from "@/components/navigation/PageLink"
+import TrackArtists from "../TrackArtists"
 
 
 export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
@@ -19,18 +21,23 @@ export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
         header: "Title",
         cell: ({ row }) => {
             const track = row.original.track;
+            if (!track) return null;
             return (
                 <div className="flex items-center gap-4">
                     <div className="size-10">
-                        <Cover type="album" imgUrl={track?.album.images?.[0]?.url ?? ""} />
+                        <Cover type="album" imgUrl={track.album.images?.[0]?.url ?? ""} />
                     </div>
                     <div>
-                        <p>
-                            {track?.name}
-                        </p>
-                        <p className="text-muted-foreground text-sm">
-                            {track?.artists.map((artist) => artist.name).join(", ")}
-                        </p>
+                        {!track.is_local ?
+                            <PageLink type="album" id={track.album.id} className="hover:underline font-medium">
+
+                                {track.name}
+                            </PageLink>
+                            :
+                            <p className="font-medium">{track.name}</p>
+                        }
+                        {!track.is_local && <TrackArtists artists={track.artists} className="text-muted-foreground text-sm" />}
+
                     </div>
                 </div>
             )
@@ -41,10 +48,11 @@ export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
         header: "Album",
         cell: ({ row }) => {
             const album = row.original.track?.album;
+            if (!album) return null;
             return (
-                <p className="text-muted-foreground text-sm">
-                    {album?.name}
-                </p>
+                <PageLink type="album" id={album.id} className="hover:underline text-muted-foreground text-sm">
+                    {album.name}
+                </PageLink>
             )
         }
     },
