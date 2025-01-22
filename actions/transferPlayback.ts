@@ -16,7 +16,7 @@ export async function transferPlayback(deviceId: string, play: boolean) {
         if (!res.ok) {
             throw new Error('Failed to transfer playback');
         }
-        return res.json();
+        return;
     } catch (error) {
         console.error(error);
     }

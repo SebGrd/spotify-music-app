@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import FloatingTools from "../components/tools/FloatingTools";
 import { ThemeProvider } from "./contexts/ThemeProvider";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Music app",
@@ -26,7 +25,6 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
-        <Script strategy="afterInteractive" src="https://sdk.scdn.co/spotify-player.js" async />
       </body>
     </html>
   );

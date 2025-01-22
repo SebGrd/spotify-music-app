@@ -1,6 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
-import { SpotifySDK } from '@/types/spotifySDK';
+
 import { Button } from '../ui/button';
 import { AudioLines, Bolt, Pause, Play, Repeat, Shuffle, SkipBackIcon, SkipForwardIcon } from 'lucide-react';
 import PlayerProgressBar from './PlayerProgessBar';
@@ -8,77 +7,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 import VolumeSlider from './VolumeSlider';
 import { useActions } from '@/actions';
 import Image from 'next/image';
+import { usePlayer } from '@/app/contexts/SpotifyPlayer';
 
 
-function WebPlayback({ token }: { token: string }) {
+function WebPlayback() {
     const { transferPlayback } = useActions();
+    const { player, state, deviceId, currentTrack } = usePlayer();
 
-    const [is_paused, setPaused] = useState(false);
-    const [isActive, setActive] = useState(false);
-    const [player, setPlayer] = useState<SpotifySDK.Player | undefined>(undefined);
-    const [state, setState] = useState<Spotify.PlaybackState | null>(null);
-    const [current_track, setTrack] = useState<Spotify.PlaybackState['track_window']['current_track'] | null>(null);
-    const [deviceId, setDeviceId] = useState<string | null>(null);
-
-    useEffect(() => {
-
-        // if (!window.onSpotifyWebPlaybackSDKReady) {
-        //     const script = document.createElement("script");
-        //     script.src = "https://sdk.scdn.co/spotify-player.js";
-        //     script.async = true;
-        //     document.body.appendChild(script);
-        // }
-
-        window.onSpotifyWebPlaybackSDKReady = () => {
-
-            const player = new window.Spotify.Player({
-                name: 'Music app',
-                getOAuthToken: (cb) => { cb(token); },
-                volume: 0.5
-            });
-
-            setPlayer(player);
-
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
-                setDeviceId(device_id);
-                player.getCurrentState().then(state => {
-                    console.log('Current state', state);
-                    setActive(state ? true : false);
-                });
-            });
-
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
-
-            player.addListener('authentication_error', () => {
-                console.log('Authentication Error');
-            });
-
-            player.addListener('player_state_changed', (state => {
-
-                if (!state) {
-                    return setActive(false);
-                }
-
-                setActive(true);
-                setPlayer(player);
-
-                console.log('State changed', state);
-
-                setState(state);
-                setTrack(state.track_window.current_track);
-                setPaused(state.paused);
-
-            }));
-
-            player.connect()
-
-        };
-    }, [token]);
-
-    if (!isActive || !player) {
+    if (!state || !player) {
         return (
             <div className='flex items-center justify-center h-full'>
 
@@ -94,14 +30,14 @@ function WebPlayback({ token }: { token: string }) {
 
             {/* Thumbnail / Title */}
             <div className='row-span-1 col-span-2 lg:row-span-2 lg:col-span-1 flex items-center gap-4'>
-                {current_track ?
-                    <Image src={current_track.album.images[0].url} className="size-16" alt="" />
+                {currentTrack ?
+                    <Image src={currentTrack.album.images[0].url} className="size-16" alt="" width={300} height={300} />
                     :
                     <div className='size-16 bg-secondary'></div>
                 }
                 <div className='w-[200px] lg:w-[180px] xl:w-[230px]'>
-                    <a className="block text-sm font-semibold truncate">{current_track?.name ?? '-'}</a>
-                    <a className="block text-sm text-muted-foreground">{current_track?.artists[0].name ?? '-'}</a>
+                    <a className="block text-sm font-semibold truncate">{currentTrack?.name ?? '-'}</a>
+                    <a className="block text-sm text-muted-foreground">{currentTrack?.artists[0].name ?? '-'}</a>
                 </div>
             </div>
 
@@ -115,7 +51,7 @@ function WebPlayback({ token }: { token: string }) {
                     <SkipBackIcon />
                 </Button>
                 <Button variant="default" size="icon" onClick={() => { player.togglePlay() }}>
-                    {is_paused ? <Play /> : <Pause />}
+                    {state.paused ? <Play /> : <Pause />}
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => { player.nextTrack() }}>
                     <SkipForwardIcon />
@@ -136,9 +72,6 @@ function WebPlayback({ token }: { token: string }) {
                     />
                 }
             </div>
-
-            {/* <div className='flex flex-col items-center flex-grow gap-2'>
-            </div> */}
 
             {/* Other controls */}
             <div className='lg:row-span-2 lg:col-start-3 lg:row-start-1 hidden lg:block lg:w-[150px] xl:w-[200px]'>

@@ -21,11 +21,14 @@ export default function PlayerProgressBar({ duration, position, stopped, onSeek 
             return setRunningPosition(position);
         }
         const interval = setInterval(() => {
-            setRunningPosition((prev) => prev + 200);
-        }, 200);
+            if (isSliding) {
+                return;
+            }
+            setRunningPosition((prev) => prev + 300);
+        }, 300);
         setRunningPosition(position);
         return () => clearInterval(interval);
-    }, [position, duration, stopped]);
+    }, [position, duration, stopped, isSliding]);
 
     useEffect(() => {
         setProgress((runningPosition / duration) * 100);
