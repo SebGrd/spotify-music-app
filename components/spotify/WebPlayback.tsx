@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from '../ui/button';
-import { AudioLines, Bolt, Pause, Play, Repeat, Shuffle, SkipBackIcon, SkipForwardIcon } from 'lucide-react';
+import { AudioLines, ListMusic, MonitorSpeaker, Pause, Play, Repeat, Shuffle, Signal, SkipBackIcon, SkipForwardIcon } from 'lucide-react';
 import PlayerProgressBar from './PlayerProgessBar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import VolumeSlider from './VolumeSlider';
@@ -75,17 +75,25 @@ function WebPlayback() {
 
             {/* Other controls */}
             <div className='lg:row-span-2 lg:col-start-3 lg:row-start-1 hidden lg:block lg:w-[150px] xl:w-[200px]'>
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger>
-                            <Bolt />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p >Playback quality</p>
-                            <p className='text-center font-semibold'>{state?.playback_quality}</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
+                <div className='flex items-center justify-end gap-2 mb-2'>
+                    <Button variant="outline" size="icon">
+                        <ListMusic />
+                    </Button>
+                    <Button variant="outline" size="icon">
+                        <MonitorSpeaker />
+                    </Button>
+                    <TooltipProvider>
+                        <Tooltip delayDuration={0}>
+                            <TooltipTrigger>
+                                <Signal className='text-muted-foreground' size={20}/>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Playback quality</p>
+                                <p className='text-center font-semibold'>{state?.playback_quality}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
                 <VolumeSlider />
             </div>
         </div>
