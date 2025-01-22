@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import StoreProvider from "@/store/store-provider";
 import { SpotifyPlayerProvider } from "../contexts/SpotifyPlayer";
+import getAndSetRefreshToken from "@/actions/getAndSetRefreshToken";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,17 @@ export default function WebPlayerLayout({ children }: { children: React.ReactNod
             return router.push('/');
         }
     }, [router]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        const refreshing = setInterval(() => {
+            getAndSetRefreshToken();
+        }, 1000 * 50 * 20, abortController.signal);
+        return () => {
+            clearInterval(refreshing);
+        }
+    }, [])
+
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-right" />

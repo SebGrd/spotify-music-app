@@ -25,5 +25,5 @@ export async function GET(request: Request) {
    }
    const data = await res.json();
    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-   return NextResponse.redirect(`${baseUrl}/auth/token?token=${data.access_token}`);
+   return NextResponse.redirect(`${baseUrl}/auth/token?token=${data.access_token}&refreshToken=${data.refresh_token}`);
 }

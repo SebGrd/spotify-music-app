@@ -7,8 +7,10 @@ export default function TokenPage() {
     useEffect(() => {
         const { searchParams } = new URL(window.location.href);
         const token = searchParams.get('token');
-        if (token) {
+        const refreshToken = searchParams.get('refreshToken');
+        if (token && refreshToken) {
             localStorage.setItem('token', token);
+            localStorage.setItem('refreshToken', refreshToken);
             router.push('/webplayer');
         }
     }, [router]);
