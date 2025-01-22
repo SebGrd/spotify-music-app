@@ -12,6 +12,8 @@ type StoreContextType = {
     myAlbums: (pagination: Pagination) => UseQueryResult<SpotifyApi.UsersSavedAlbumsResponse>;
     album: (id: string) => UseQueryResult<SpotifyApi.AlbumObjectFull>;
     myArtists: (pagination: ArtistsPagination) => UseQueryResult<SpotifyApi.UsersFollowedArtistsResponse>;
+    artist: (id: string) => UseQueryResult<SpotifyApi.ArtistObjectFull>;
+    isFollowing: (id: string) => UseQueryResult<SpotifyApi.UserFollowsUsersOrArtistsResponse>;
     playerMutation: UseMutationResult<any, unknown, MutationData<PlayerMutationAction>, unknown>;
 };
 

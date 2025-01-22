@@ -7,6 +7,8 @@ import playlistQuery from "./queries/playlistQuery";
 import { myAlbumsQuery } from "./queries/myAlbumsQuery";
 import albumQuery from "./queries/albumQuery";
 import { myArtistsQuery } from "./queries/myArtistsQuery";
+import { artistQuery } from "./queries/artistQuery";
+import { isFollowingQuery } from "./queries/isFollowingQuery";
 
 export default function StoreProvider({ children }: { children: React.ReactNode }) {
     return (
@@ -17,6 +19,8 @@ export default function StoreProvider({ children }: { children: React.ReactNode 
             myAlbums: (pagination) => useQuery(myAlbumsQuery(pagination)),
             album: (id) => useQuery(albumQuery(id)),
             myArtists: (pagination) => useQuery(myArtistsQuery(pagination)),
+            artist: (id) => useQuery(artistQuery(id)),
+            isFollowing: (id) => useQuery(isFollowingQuery(id)),
             playerMutation: useMutation(playerMutation)
         }}>
             {children}
