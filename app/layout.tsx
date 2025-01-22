@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import FloatingTools from "../components/tools/FloatingTools";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 
 export const metadata: Metadata = {
@@ -17,7 +16,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-          <FloatingTools />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

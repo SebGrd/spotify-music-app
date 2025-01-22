@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useStore } from "@/store/store-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "../ui/skeleton";
+import logout from "@/actions/logout";
 
 
 const menu = [
@@ -135,8 +136,8 @@ export function AppSidebar() {
                                 <DropdownMenuItem>
                                     <span>Billing</span>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Sign out</span>
+                                <DropdownMenuItem onClick={() => logout()} className="cursor-pointer">
+                                    <span className="text-red-500">Sign out</span>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
