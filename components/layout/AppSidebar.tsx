@@ -18,6 +18,7 @@ import { useStore } from "@/store/store-hook";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "../ui/skeleton";
 import logout from "@/actions/logout";
+import { usePathname } from "next/navigation";
 
 
 const menu = [
@@ -55,6 +56,7 @@ const menu = [
 
 export function AppSidebar() {
     const { user } = useStore();
+    const pathname = usePathname();
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader />
@@ -87,7 +89,7 @@ export function AppSidebar() {
                                     <SidebarMenu>
                                         {group.items.map((item, i) => (
                                             <SidebarMenuItem key={`item-${i}`}>
-                                                <SidebarMenuButton asChild>
+                                                <SidebarMenuButton asChild isActive={pathname === item.url}>
                                                     <Link href={item.url}>
                                                         <item.icon />
                                                         <span>{item.title}</span>

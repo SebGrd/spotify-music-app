@@ -2,14 +2,14 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import WebPlayback from "../../components/spotify/WebPlayback";
-import { ModeToggle } from "@/components/ui/ThemeModeSwitcher";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/layout/AppSidebar"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import StoreProvider from "@/store/store-provider";
 import { SpotifyPlayerProvider } from "../contexts/SpotifyPlayer";
 import getAndSetRefreshToken from "@/actions/getAndSetRefreshToken";
+import AppHeader from "@/components/layout/AppHeader";
 
 const queryClient = new QueryClient();
 
@@ -40,11 +40,8 @@ export default function WebPlayerLayout({ children }: { children: React.ReactNod
                 <SpotifyPlayerProvider>
                     <SidebarProvider>
                         <AppSidebar />
-                        <div className="grid grow grid-rows-[50px,1fr,105px] h-screen">
-                            <header className="bg-background border-b border-border">
-                                <SidebarTrigger />
-                                <ModeToggle />
-                            </header>
+                        <div className="grid grow grid-rows-[auto,1fr,105px] h-screen">
+                            <AppHeader />
                             <main className="bg-background max-h-full overflow-y-auto">
                                 {children}
                             </main>
