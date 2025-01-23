@@ -5,15 +5,14 @@ export default function TrackArtists({ artists, className }: { artists: SpotifyA
     return (
         <p className={className}>
             {artists.map((artist, index) => (
-                <>
+                <span key={`artist-${index}`}>
                     <PageLink
-                        key={`artist-${index}`}
                         type="artist"
                         id={artist.id}
                         className="hover:underline">
                         {artist.name}
                     </PageLink>{index < artists.length - 1 ? ", " : ""}
-                </>
+                </span>
             ))}
         </p>
 
