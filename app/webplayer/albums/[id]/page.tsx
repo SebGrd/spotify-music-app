@@ -66,7 +66,10 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
 
 
             <section className="px-4">
-                <AlbumTable tracks={album.data?.tracks?.items ?? []} isLoading={!album.isSuccess} />
+                <AlbumTable data={{
+                    tracks: album.data?.tracks?.items ?? [],
+                    albumContextUri: album.data?.uri ?? ''
+                }} isLoading={!album.isSuccess} />
             </section>
 
         </div>

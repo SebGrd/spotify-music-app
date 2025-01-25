@@ -3,8 +3,13 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function AlbumTable({ tracks, isLoading }: { tracks: SpotifyApi.TrackObjectSimplified[]; isLoading?: boolean }) {
-    const tableData = useMemo(() => (isLoading ? Array(30).fill({}) : tracks), [tracks, isLoading]);
+type AlbumTableData = {
+    tracks: SpotifyApi.TrackObjectSimplified[];
+    albumContextUri: string;
+}
+
+export default function AlbumTable({ data, isLoading }: { data: AlbumTableData, isLoading?: boolean }) {
+    const tableData = useMemo(() => (isLoading ? Array(30).fill({}) : data.tracks), [data, isLoading]);
     const tableColumns = useMemo(() => (isLoading
         ? columns.map((column) => ({
             ...column,
@@ -13,6 +18,8 @@ export default function AlbumTable({ tracks, isLoading }: { tracks: SpotifyApi.T
         : columns),
         [isLoading]);
     return (
-        <DataTable columns={tableColumns} data={tableData} />
+        <DataTable columns={tableColumns} data={tableData} meta={
+            { albumContextUri: data.albumContextUri }
+        } />
     )
 }

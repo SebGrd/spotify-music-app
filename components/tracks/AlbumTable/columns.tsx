@@ -11,6 +11,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import TrackArtists from "../TrackArtists"
+import TrackListPlayButton from "@/components/spotify/TrackListPlayButton"
 
 
 export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
@@ -18,9 +19,22 @@ export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
         id: "index",
         header: "#",
         maxSize: 10,
-        cell: ({ row }) => {
+        cell: ({ row, table }) => {
             return (
-                <span className="text-muted-foreground">{row.index + 1}</span>
+                <div className="relative">
+                    <span className="text-muted-foreground inline group-hover/row:hidden">{row.index + 1}</span>
+                    {table.options.meta &&
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <TrackListPlayButton
+                                contextUri={table.options.meta.albumContextUri}
+                                trackId={row.original.id}
+                                offset={{
+                                    position: row.original.track_number - 1
+                                }}
+                            />
+                        </div>
+                    }
+                </div>
             )
         }
     },
@@ -43,6 +57,7 @@ export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
     {
         accessorKey: "duration_ms",
         header: "Length",
+        size: 120,
         cell: ({ row }) => {
             const duration = row.original.duration_ms;
             if (!duration) return null;
@@ -57,6 +72,7 @@ export const columns: ColumnDef<SpotifyApi.TrackObjectSimplified>[] = [
     },
     {
         id: "actions",
+        size: 60,
         cell: () => {
             return (
                 <DropdownMenu>

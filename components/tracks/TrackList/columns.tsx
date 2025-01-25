@@ -59,6 +59,7 @@ export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
     {
         accessorKey: "track.duration_ms",
         header: "Length",
+        size: 120,
         cell: ({ row }) => {
             const duration = row.original.track?.duration_ms;
             if (!duration) return null;
@@ -73,6 +74,7 @@ export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
     },
     {
         id: "actions",
+        size: 60,
         cell: () => {
             return (
                 <DropdownMenu>
