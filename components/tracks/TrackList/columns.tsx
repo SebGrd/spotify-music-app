@@ -13,9 +13,33 @@ import {
 } from "@/components/ui/dropdown-menu"
 import PageLink from "@/components/navigation/PageLink"
 import TrackArtists from "../TrackArtists"
+import TrackListPlayButton from "@/components/spotify/TrackListPlayButton"
 
 
 export const columns: ColumnDef<SpotifyApi.PlaylistTrackObject>[] = [
+    {
+        id: "index",
+        header: "#",
+        maxSize: 10,
+        cell: ({ row, table }) => {
+            return (
+                <div className="relative">
+                    <span className="text-muted-foreground inline group-hover/row:hidden">{row.index + 1}</span>
+                    {table.options.meta && row.original.track &&
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <TrackListPlayButton
+                                contextUri={table.options.meta.albumContextUri}
+                                trackId={row.original.track.id}
+                                offset={{
+                                    position: row.index,
+                                }}
+                            />
+                        </div>
+                    }
+                </div>
+            )
+        }
+    },
     {
         accessorKey: "track.name",
         header: "Title",

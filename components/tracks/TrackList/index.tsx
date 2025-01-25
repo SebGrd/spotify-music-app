@@ -3,7 +3,15 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function TrackTable({ tracks, isLoading }: { tracks: SpotifyApi.PlaylistTrackObject[]; isLoading?: boolean }) {
+type TrackTableProps = {
+    tracks: SpotifyApi.PlaylistTrackObject[];
+    isLoading?: boolean;
+    meta?: {
+        albumContextUri: string;
+    };
+};
+
+export default function TrackTable({ tracks, isLoading, meta }: TrackTableProps) {
     const tableData = useMemo(() => (isLoading ? Array(30).fill({}) : tracks), [tracks, isLoading]);
     const tableColumns = useMemo(() => (isLoading
         ? columns.map((column) => ({
@@ -13,6 +21,6 @@ export default function TrackTable({ tracks, isLoading }: { tracks: SpotifyApi.P
         : columns),
         [isLoading]);
     return (
-        <DataTable columns={tableColumns} data={tableData} />
+        <DataTable columns={tableColumns} data={tableData} meta={meta} />
     )
 }
